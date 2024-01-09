@@ -27,7 +27,7 @@ istioctl install
 
 Step 2: Configure Pre-Requisites
 - 
-1. Update istio-system-azure-secret.yaml, and istio-system-letsencrypt-issuer.yaml with values as explained in https://cert-manager.io/docs/configuration/acme/dns01/azuredns/
+1. Provide your own values for the following placeholders in istio-system-azure-secret.yaml, and istio-system-letsencrypt-issuer.yaml as explained in https://cert-manager.io/docs/configuration/acme/dns01/azuredns/
     - <your_azure_client_secret>
     - <your_email_address>
     - <your_azure_client_id>

@@ -8,7 +8,7 @@ spec:
   renewBefore: 360h # 15d
   subject:
     organizations:
-    - jasonmarston
+    - <your_organisation>
   commonName: server
   dnsNames:
   - server

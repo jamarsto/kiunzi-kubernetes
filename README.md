@@ -16,4 +16,4 @@ Step 2: Install & Configure MySQL
 
 Step 3: Install & Configure Keycloak
 - kubectl apply -f ./framework-config/keycloak-config
-- Import the .json file.  instructions to follow******************************************
+- Import the .json file.  instructions to follow*****************************************

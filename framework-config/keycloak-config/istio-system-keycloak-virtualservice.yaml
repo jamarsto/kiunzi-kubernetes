@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: keycloak
+  namespace: istio-system
+spec:
+  hosts:
+  - login.demo.jasonmarston.co.uk
+  gateways:
+  - login-demo-gateway
+  http:
+  - name: keycloak-route
+    match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        host: keycloak.default.svc.cluster.local
+        port:
+          number: 8080

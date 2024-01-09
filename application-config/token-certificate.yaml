@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: server-certificate
+spec:
+  isCA: false
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizations:
+    - jasonmarston
+  commonName: server
+  dnsNames:
+  - server
+  secretName: token-secrets
+  privateKey:
+    rotationPolicy: Always
+    encoding: PKCS8
+    algorithm: RSA
+    size: 2048
+  usages:
+  - digital signature
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer
+    group: cert-manager.io

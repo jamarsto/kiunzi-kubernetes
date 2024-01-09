@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: default
+  labels:
+    app: keycloak
+    custom: mylabel2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: keycloak/keycloak:22.0.5
+        args: ["start"]
+        env:
+        - name: KEYCLOAK_ADMIN
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-secrets
+              key: keycloak-admin-name
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-secrets
+              key: keycloak-admin-password
+        - name: KC_PROXY
+          value: "edge"
+        - name: KC_HOSTNAME_STRICT
+          value: "false"
+        - name: KC_DB
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-secrets
+              key: keycloak-db-provider
+        - name: KC_DB_URL
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-secrets
+              key: keycloak-db-url
+        - name: KC_DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-secrets
+              key: keycloak-db-user
+        - name: KC_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-secrets
+              key: keycloak-db-password
+        - name: JDBC_PARAMS
+          value: "useSSL=true&requireSSL=false"
+        ports:
+        - name: http
+          containerPort: 8080

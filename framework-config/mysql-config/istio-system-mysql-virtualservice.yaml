@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: mysql
+  namespace: istio-system
+spec:
+  hosts:
+  - login.demo.jasonmarston.co.uk
+  gateways:
+  - login-demo-gateway
+  tcp:
+  - match:
+    - port: 3306
+    route:
+    - destination:
+        host: mysql.default.svc.cluster.local
+        port:
+          number: 3306

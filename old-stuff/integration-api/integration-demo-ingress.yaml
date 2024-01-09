@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata:
+  name: integration-demo-ingress
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/issuer: "letsencrypt-issuer"
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+    nginx.ingress.kubernetes.io/auth-tls-secret: "default/ca-secret"
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: "1"
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "false"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - integration.demo.jasonmarston.co.uk
+    secretName: integration-demo-secrets
+  rules:
+  - host: integration.demo.jasonmarston.co.uk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: integration-api-service
+            port:
+              number: 8080

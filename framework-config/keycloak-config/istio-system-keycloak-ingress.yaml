@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: login-demo-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 8080
+      name: http
+      protocol: HTTP
+    hosts:
+    - login.demo.jasonmarston.co.uk
+    tls:
+      httpsRedirect: true
+  - port:
+      number: 8443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - login.demo.jasonmarston.co.uk
+    tls:
+      mode: SIMPLE
+      credentialName: login-demo-secrets
+  - port:
+      number: 3306
+      name: mysql-port
+      protocol: tcp
+    hosts:
+    - login.demo.jasonmarston.co.uk

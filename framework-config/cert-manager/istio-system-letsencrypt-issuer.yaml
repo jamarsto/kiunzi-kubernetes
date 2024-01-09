@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-issuer
+  namespace: istio-system
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: <your_email_address>
+    privateKeySecretRef:
+      name: letsencrypt-issuer-private-key-secret
+    solvers:
+    - dns01:
+        azureDNS:
+          clientID: <your_azure_client_id>
+          clientSecretSecretRef:
+            name: azure-secret
+            key: client-secret
+          subscriptionID: <your_azure_subscription_id>
+          tenantID: <your_azure_tenant_id>
+          resourceGroupName: demo-dns
+          hostedZoneName: <your_dns_zone>
+          environment: AzurePublicCloud
+
+# How to get and decode certificates and private keys
+# kubectl get secret client-secret -o jsonpath="{.data.ca\.crt}" | base64 --decode > ca.crt
+# kubectl get secret client-secret -o jsonpath="{.data.tls\.crt}" | base64 --decode > tls.crt
+# kubectl get secret client-secret -o jsonpath="{.data.tls\.key}" | base64 --decode > client.key

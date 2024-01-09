@@ -5,7 +5,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - login.demo.jasonmarston.co.uk
+  - <your_keycloak_hostname>
   gateways:
   - login-demo-gateway
   http:

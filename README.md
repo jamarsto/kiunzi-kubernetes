@@ -74,4 +74,4 @@ Step 4: Install & Configure Keycloak
 ```
 kubectl apply -f  ./framework-config/keycloak-config
 ```
-3. Login to keycloak and import the quarkus-realm.yaml from the kiunzi-gateway repo "bootstrap-client/src/main/resources/quarkus-realm.json"
+3. Login to keycloak and import the quarkus-realm.json file
